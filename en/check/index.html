@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sovereignty Check — Swiss AI</title>
 <meta name="description" content="How sovereign is your AI? 10 questions, 3 minutes, instant result: your sovereignty score for jurisdiction, model control, data flow and auditability.">
-<link rel="canonical" href="https://swiss-ai.operal.solutions/en/check/">
-<link rel="alternate" hreflang="de-CH" href="https://swiss-ai.operal.solutions/check/">
+<link rel="canonical" href="https://swiss-ai.operal.tech/en/check/">
+<link rel="alternate" hreflang="de-CH" href="https://swiss-ai.operal.tech/check/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -186,7 +186,7 @@ function finish() {
   const body = encodeURIComponent("Hello\n\nI took the Sovereignty Check.\nScore: " + total + "/100 (" + dimTxt + ")\n\nI would like to book a 30-minute briefing.\n\nCompany:\nName:\nPhone (optional):");
   $("ctaBriefing").href = "mailto:swiss-ai@operal.solutions?subject=" + subj + "&body=" + body;
   $("ctaMail").href = "mailto:?subject=" + encodeURIComponent("My AI sovereignty score: " + total + "/100") +
-    "&body=" + encodeURIComponent("Sovereignty Check by Swiss AI (swiss-ai.operal.solutions)\n\nScore: " + total + "/100\n" + dimTxt + "\n\nTake the check yourself: https://swiss-ai.operal.solutions/en/check/");
+    "&body=" + encodeURIComponent("Sovereignty Check by Swiss AI (swiss-ai.operal.tech)\n\nScore: " + total + "/100\n" + dimTxt + "\n\nTake the check yourself: https://swiss-ai.operal.tech/en/check/");
   $("bar").style.width = "100%";
 }
 </script>

@@ -1,8 +1,8 @@
-# Swiss AI — swiss-ai.operal.solutions
+# Swiss AI — swiss-ai.operal.tech
 
 Sovereign AI infrastructure from Switzerland. A collaboration of **Operal AG** (Zug) and **Ovescom AG** (Weinfelden).
 
-Static site, served via GitHub Pages under `swiss-ai.operal.solutions`.
+Static site, served via GitHub Pages under `swiss-ai.operal.tech`.
 
 - `/` — German homepage (primary)
 - `/en/` — English homepage

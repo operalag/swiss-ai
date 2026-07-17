@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Souveränitäts-Check — Swiss AI</title>
 <meta name="description" content="Wie souverän ist Ihre KI? 10 Fragen, 3 Minuten, sofortiges Ergebnis: Ihr Souveränitäts-Score für Jurisdiktion, Modellkontrolle, Datenfluss und Auditierbarkeit.">
-<link rel="canonical" href="https://swiss-ai.operal.solutions/check/">
-<link rel="alternate" hreflang="en" href="https://swiss-ai.operal.solutions/en/check/">
+<link rel="canonical" href="https://swiss-ai.operal.tech/check/">
+<link rel="alternate" hreflang="en" href="https://swiss-ai.operal.tech/en/check/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -190,7 +190,7 @@ function finish() {
   const body = encodeURIComponent("Guten Tag\n\nIch habe den Souveränitäts-Check gemacht.\nScore: " + total + "/100 (" + dimTxt + ")\n\nIch möchte ein 30-Minuten-Briefing buchen.\n\nFirma:\nName:\nTelefon (optional):");
   $("ctaBriefing").href = "mailto:swiss-ai@operal.solutions?subject=" + subj + "&body=" + body;
   $("ctaMail").href = "mailto:?subject=" + encodeURIComponent("Mein KI-Souveränitäts-Score: " + total + "/100") +
-    "&body=" + encodeURIComponent("Souveränitäts-Check von Swiss AI (swiss-ai.operal.solutions)\n\nScore: " + total + "/100\n" + dimTxt + "\n\nCheck selbst machen: https://swiss-ai.operal.solutions/check/");
+    "&body=" + encodeURIComponent("Souveränitäts-Check von Swiss AI (swiss-ai.operal.tech)\n\nScore: " + total + "/100\n" + dimTxt + "\n\nCheck selbst machen: https://swiss-ai.operal.tech/check/");
   $("bar").style.width = "100%";
 }
 </script>
