@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Souveränitäts-Check — Swiss AI</title>
+<meta name="description" content="Wie souverän ist Ihre KI? 10 Fragen, 3 Minuten, sofortiges Ergebnis: Ihr Souveränitäts-Score für Jurisdiktion, Modellkontrolle, Datenfluss und Auditierbarkeit.">
+<link rel="canonical" href="https://swiss-ai.operal.solutions/check/">
+<link rel="alternate" hreflang="en" href="https://swiss-ai.operal.solutions/en/check/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230b0c10'/><rect x='42' y='22' width='16' height='56' fill='%23d4a843'/><rect x='22' y='42' width='56' height='16' fill='%23d4a843'/></svg>">
+</head>
+<body>
+
+<header class="hdr">
+  <div class="wrap nav">
+    <a class="brand" href="/">
+      <span class="brand-mark">SWISS AI<span class="dot">.</span></span>
+      <span class="brand-by">by Operal × Ovescom</span>
+    </a>
+    <div class="navmeta">
+      <div class="lang" aria-label="Sprache">
+        <a class="on" href="/check/" aria-current="true">DE</a>
+        <a href="/en/check/">EN</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="check-shell">
+
+  <!-- intro -->
+  <div id="intro">
+    <span class="coord">Souveränitäts-Check · 10 Fragen · 3 Minuten</span>
+    <h1 class="h-section" style="margin:18px 0 18px;">Wie souverän ist Ihre KI?</h1>
+    <p class="lede" style="margin-bottom:34px;">Beantworten Sie 10 Fragen zu Ihrer heutigen
+    KI-Nutzung. Sie erhalten sofort Ihren Souveränitäts-Score in vier Dimensionen —
+    Jurisdiktion, Modellkontrolle, Datenfluss, Auditierbarkeit. Keine Registrierung,
+    keine Datenübertragung: Der Check läuft vollständig in Ihrem Browser.</p>
+    <button class="btn btn-gold" id="start">Check starten</button>
+  </div>
+
+  <!-- quiz -->
+  <div id="quiz" class="hidden">
+    <div class="check-progress"><i id="bar"></i></div>
+    <div class="q-card">
+      <p class="q-dim" id="qdim"></p>
+      <p class="q-title" id="qtitle"></p>
+      <div class="q-opts" id="qopts"></div>
+      <div class="q-nav">
+        <button class="q-back" id="back">← Zurück</button>
+        <span class="q-back" id="count" style="cursor:default;"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- result -->
+  <div id="result" class="hidden">
+    <div class="score-hero">
+      <span class="coord" style="justify-content:center;">Ihr Souveränitäts-Score</span>
+      <div class="score-num gold" id="score">–</div>
+      <div class="score-label">von 100 Punkten</div>
+      <p class="score-verdict" id="verdict"></p>
+      <p class="score-sub" id="verdictSub"></p>
+    </div>
+    <div class="dims" id="dims"></div>
+    <div class="band" style="text-align:center;">
+      <span class="coord" style="justify-content:center;">Der nächste Schritt</span>
+      <h2 class="h-card" style="font-size:1.4rem;margin:12px 0 10px;">Besprechen Sie Ihr Ergebnis mit unseren Architekten.</h2>
+      <p style="color:var(--muted);font-size:14.5px;max-width:52ch;margin:0 auto 24px;">
+      30 Minuten Sovereignty Briefing — unverbindlich. Wir zeigen, wie Sie die Lücken schliessen:
+      mit offenen Modellen auf dedizierter Schweizer Infrastruktur.</p>
+      <div class="result-ctas">
+        <a class="btn btn-gold" id="ctaBriefing" href="#">Briefing buchen</a>
+        <a class="btn btn-glass" id="ctaMail" href="#">Ergebnis als E-Mail an mich</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:26px;"><a href="/" style="color:var(--muted);font-size:13.5px;">← Zurück zu Swiss AI</a></p>
+  </div>
+
+</main>
+
+<script>
+const DIMS = { J: "Jurisdiktion", M: "Modellkontrolle", D: "Datenfluss", A: "Auditierbarkeit" };
+
+const QS = [
+  { d:"J", t:"Wo werden die KI-Anfragen Ihrer Organisation heute verarbeitet?", o:[
+    ["In der Schweiz, auf dedizierter Infrastruktur", 10],
+    ["In der EU, beim Cloud-Anbieter", 5],
+    ["In den USA oder unbekannt — «in der Cloud»", 0],
+    ["Wir wissen es ehrlich gesagt nicht genau", 0]]},
+  { d:"J", t:"Welchem Recht untersteht Ihr KI-Anbieter im Konfliktfall?", o:[
+    ["Schweizer Recht, Schweizer Gerichtsstand", 10],
+    ["EU-Recht", 5],
+    ["US-Recht bzw. Recht eines Drittstaats", 0],
+    ["Das haben wir nie geprüft", 0]]},
+  { d:"J", t:"Könnte eine ausländische Behörde theoretisch Zugriff auf Ihre KI-Daten verlangen?", o:[
+    ["Nein — Verarbeitung und Anbieter sind vollständig in der Schweiz", 10],
+    ["Unklar — unser Anbieter hat eine US-Muttergesellschaft", 3],
+    ["Ja, vermutlich", 0]]},
+  { d:"M", t:"Wer entscheidet, wann Ihr KI-Modell abgeschaltet oder ersetzt wird?", o:[
+    ["Wir — unsere Modellversion ist eingefroren und bleibt verfügbar", 10],
+    ["Der Anbieter, aber mit Vorlaufzeit", 4],
+    ["Der Anbieter, jederzeit und einseitig", 0]]},
+  { d:"M", t:"Könnten Sie Ihr heutiges Modell durch ein anderes ersetzen, ohne Ihre Anwendungen umzubauen?", o:[
+    ["Ja — unsere Architektur ist modell-agnostisch", 10],
+    ["Teilweise, mit Aufwand", 5],
+    ["Nein, wir sind auf einen Anbieter festgelegt", 0]]},
+  { d:"M", t:"Nutzen Sie offene Modelle (Open Weights), die Sie selbst betreiben könnten?", o:[
+    ["Ja, produktiv", 10],
+    ["In Tests / Pilotprojekten", 6],
+    ["Nein, nur proprietäre Cloud-Modelle", 0]]},
+  { d:"D", t:"Was passiert mit den Prompts Ihrer Mitarbeitenden?", o:[
+    ["Sie bleiben auf unserer Instanz — kein Logging durch Dritte", 10],
+    ["Der Anbieter loggt, verspricht aber Vertraulichkeit", 4],
+    ["Unklar — vermutlich werden sie gespeichert und ausgewertet", 0]]},
+  { d:"D", t:"Wird auf Ihren Daten trainiert?", o:[
+    ["Nein — technisch ausgeschlossen", 10],
+    ["Laut Vertrag nicht (Opt-out)", 5],
+    ["Wir wissen es nicht", 0]]},
+  { d:"A", t:"Können Sie für jede KI-Antwort belegen, welches Modell in welcher Version sie erzeugt hat?", o:[
+    ["Ja — lückenlos protokolliert, unter unserer Kontrolle", 10],
+    ["Teilweise, über Anbieter-Dashboards", 4],
+    ["Nein", 0]]},
+  { d:"A", t:"Würde Ihre KI-Nutzung einer Prüfung durch Revision oder Aufsicht standhalten?", o:[
+    ["Ja — Protokolle, Verträge und Datenflüsse sind revisionsfähig dokumentiert", 10],
+    ["Wahrscheinlich, mit Nacharbeit", 5],
+    ["Das möchten wir lieber nicht herausfinden", 0]]}
+];
+
+const VERDICTS = [
+  [80, "Souverän. Sie gehören zur Spitze.", "Ihre KI-Nutzung ist weitgehend unter Ihrer Kontrolle. Im Briefing zeigen wir, wie Sie das Niveau halten — auch wenn Ihre Anwendungsfälle wachsen."],
+  [60, "Solide — mit klaren Lücken.", "Das Fundament stimmt, aber an entscheidenden Stellen entscheidet noch ein fremder Anbieter. Die Lücken sind gezielt schliessbar."],
+  [40, "Kritische Lücken.", "Verfügbarkeit, Vertraulichkeit oder Nachweisbarkeit hängen heute von Dritten ab. Für eine regulierte Organisation ist das ein echtes Risiko."],
+  [0,  "Fremdbestimmt.", "Ihre KI läuft nach fremden Regeln, unter fremdem Recht, ohne Ihre Kontrolle. Die gute Nachricht: Der Weg zur Souveränität ist kürzer, als Sie denken."]
+];
+
+let i = 0; const answers = [];
+const $ = id => document.getElementById(id);
+
+$("start").addEventListener("click", () => { $("intro").classList.add("hidden"); $("quiz").classList.remove("hidden"); render(); });
+$("back").addEventListener("click", () => { if (i > 0) { i--; answers.pop(); render(); } });
+
+function render() {
+  const q = QS[i];
+  $("qdim").textContent = "Dimension · " + DIMS[q.d];
+  $("qtitle").textContent = q.t;
+  $("count").textContent = (i + 1) + " / " + QS.length;
+  $("bar").style.width = (i / QS.length * 100) + "%";
+  $("back").style.visibility = i === 0 ? "hidden" : "visible";
+  const box = $("qopts"); box.innerHTML = "";
+  q.o.forEach(([label, pts]) => {
+    const b = document.createElement("button");
+    b.className = "q-opt"; b.type = "button"; b.textContent = label;
+    b.addEventListener("click", () => { answers.push({ d: q.d, pts }); i++; i < QS.length ? render() : finish(); });
+    box.appendChild(b);
+  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function finish() {
+  $("quiz").classList.add("hidden"); $("result").classList.remove("hidden");
+  const byDim = {};
+  for (const k in DIMS) byDim[k] = { got: 0, max: 0 };
+  answers.forEach(a => { byDim[a.d].got += a.pts; byDim[a.d].max += 10; });
+  const total = Math.round(answers.reduce((s, a) => s + a.pts, 0) / (QS.length * 10) * 100);
+
+  // count-up
+  let cur = 0; const el = $("score");
+  const tick = () => { cur = Math.min(total, cur + Math.max(1, Math.round(total / 40))); el.textContent = cur; if (cur < total) requestAnimationFrame(tick); };
+  requestAnimationFrame(tick);
+
+  const v = VERDICTS.find(v => total >= v[0]);
+  $("verdict").textContent = v[1]; $("verdictSub").textContent = v[2];
+
+  const dims = $("dims"); dims.innerHTML = "";
+  for (const k in DIMS) {
+    const pct = byDim[k].max ? Math.round(byDim[k].got / byDim[k].max * 100) : 0;
+    const row = document.createElement("div"); row.className = "dim-row";
+    row.innerHTML = '<div class="dim-head"><b>' + DIMS[k] + '</b><span>' + pct + '%</span></div><div class="dim-bar"><i></i></div>';
+    dims.appendChild(row);
+    requestAnimationFrame(() => requestAnimationFrame(() => { row.querySelector("i").style.width = pct + "%"; }));
+  }
+
+  const dimTxt = Object.keys(DIMS).map(k => DIMS[k] + " " + Math.round(byDim[k].got / byDim[k].max * 100) + "%").join(", ");
+  const subj = encodeURIComponent("Sovereignty Briefing — Score " + total + "/100");
+  const body = encodeURIComponent("Guten Tag\n\nIch habe den Souveränitäts-Check gemacht.\nScore: " + total + "/100 (" + dimTxt + ")\n\nIch möchte ein 30-Minuten-Briefing buchen.\n\nFirma:\nName:\nTelefon (optional):");
+  $("ctaBriefing").href = "mailto:swiss-ai@operal.solutions?subject=" + subj + "&body=" + body;
+  $("ctaMail").href = "mailto:?subject=" + encodeURIComponent("Mein KI-Souveränitäts-Score: " + total + "/100") +
+    "&body=" + encodeURIComponent("Souveränitäts-Check von Swiss AI (swiss-ai.operal.solutions)\n\nScore: " + total + "/100\n" + dimTxt + "\n\nCheck selbst machen: https://swiss-ai.operal.solutions/check/");
+  $("bar").style.width = "100%";
+}
+</script>
+</body>
+</html>

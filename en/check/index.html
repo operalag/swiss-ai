@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sovereignty Check — Swiss AI</title>
+<meta name="description" content="How sovereign is your AI? 10 questions, 3 minutes, instant result: your sovereignty score for jurisdiction, model control, data flow and auditability.">
+<link rel="canonical" href="https://swiss-ai.operal.solutions/en/check/">
+<link rel="alternate" hreflang="de-CH" href="https://swiss-ai.operal.solutions/check/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230b0c10'/><rect x='42' y='22' width='16' height='56' fill='%23d4a843'/><rect x='22' y='42' width='56' height='16' fill='%23d4a843'/></svg>">
+</head>
+<body>
+
+<header class="hdr">
+  <div class="wrap nav">
+    <a class="brand" href="/en/">
+      <span class="brand-mark">SWISS AI<span class="dot">.</span></span>
+      <span class="brand-by">by Operal × Ovescom</span>
+    </a>
+    <div class="navmeta">
+      <div class="lang" aria-label="Language">
+        <a href="/check/">DE</a>
+        <a class="on" href="/en/check/" aria-current="true">EN</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="check-shell">
+
+  <div id="intro">
+    <span class="coord">Sovereignty Check · 10 questions · 3 minutes</span>
+    <h1 class="h-section" style="margin:18px 0 18px;">How sovereign is your AI?</h1>
+    <p class="lede" style="margin-bottom:34px;">Answer 10 questions about how your organisation uses
+    AI today. You get your sovereignty score instantly, across four dimensions — jurisdiction,
+    model control, data flow, auditability. No registration, no data transfer: the check runs
+    entirely in your browser.</p>
+    <button class="btn btn-gold" id="start">Start the check</button>
+  </div>
+
+  <div id="quiz" class="hidden">
+    <div class="check-progress"><i id="bar"></i></div>
+    <div class="q-card">
+      <p class="q-dim" id="qdim"></p>
+      <p class="q-title" id="qtitle"></p>
+      <div class="q-opts" id="qopts"></div>
+      <div class="q-nav">
+        <button class="q-back" id="back">← Back</button>
+        <span class="q-back" id="count" style="cursor:default;"></span>
+      </div>
+    </div>
+  </div>
+
+  <div id="result" class="hidden">
+    <div class="score-hero">
+      <span class="coord" style="justify-content:center;">Your sovereignty score</span>
+      <div class="score-num gold" id="score">–</div>
+      <div class="score-label">out of 100 points</div>
+      <p class="score-verdict" id="verdict"></p>
+      <p class="score-sub" id="verdictSub"></p>
+    </div>
+    <div class="dims" id="dims"></div>
+    <div class="band" style="text-align:center;">
+      <span class="coord" style="justify-content:center;">The next step</span>
+      <h2 class="h-card" style="font-size:1.4rem;margin:12px 0 10px;">Discuss your result with our architects.</h2>
+      <p style="color:var(--muted);font-size:14.5px;max-width:52ch;margin:0 auto 24px;">
+      A 30-minute Sovereignty Briefing — no obligation. We show you how to close the gaps:
+      with open models on dedicated Swiss infrastructure.</p>
+      <div class="result-ctas">
+        <a class="btn btn-gold" id="ctaBriefing" href="#">Book a briefing</a>
+        <a class="btn btn-glass" id="ctaMail" href="#">Email me my result</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:26px;"><a href="/en/" style="color:var(--muted);font-size:13.5px;">← Back to Swiss AI</a></p>
+  </div>
+
+</main>
+
+<script>
+const DIMS = { J: "Jurisdiction", M: "Model control", D: "Data flow", A: "Auditability" };
+
+const QS = [
+  { d:"J", t:"Where are your organisation's AI requests processed today?", o:[
+    ["In Switzerland, on dedicated infrastructure", 10],
+    ["In the EU, at a cloud provider", 5],
+    ["In the US, or unknown — “in the cloud”", 0],
+    ["Honestly, we don't know exactly", 0]]},
+  { d:"J", t:"Which law governs your AI provider in a conflict?", o:[
+    ["Swiss law, Swiss legal venue", 10],
+    ["EU law", 5],
+    ["US law or the law of a third country", 0],
+    ["We have never checked", 0]]},
+  { d:"J", t:"Could a foreign authority theoretically demand access to your AI data?", o:[
+    ["No — processing and provider are fully in Switzerland", 10],
+    ["Unclear — our provider has a US parent company", 3],
+    ["Yes, probably", 0]]},
+  { d:"M", t:"Who decides when your AI model is shut down or replaced?", o:[
+    ["We do — our model version is frozen and stays available", 10],
+    ["The provider, but with notice", 4],
+    ["The provider, anytime and unilaterally", 0]]},
+  { d:"M", t:"Could you replace today's model with another one without rebuilding your applications?", o:[
+    ["Yes — our architecture is model-agnostic", 10],
+    ["Partially, with effort", 5],
+    ["No, we are committed to one vendor", 0]]},
+  { d:"M", t:"Do you use open-weight models that you could operate yourself?", o:[
+    ["Yes, in production", 10],
+    ["In tests / pilots", 6],
+    ["No, proprietary cloud models only", 0]]},
+  { d:"D", t:"What happens to your employees' prompts?", o:[
+    ["They stay on our instance — no third-party logging", 10],
+    ["The provider logs them but promises confidentiality", 4],
+    ["Unclear — probably stored and evaluated", 0]]},
+  { d:"D", t:"Is anyone training on your data?", o:[
+    ["No — technically impossible", 10],
+    ["Not according to the contract (opt-out)", 5],
+    ["We don't know", 0]]},
+  { d:"A", t:"Can you prove, for every AI answer, which model in which version produced it?", o:[
+    ["Yes — logged end to end, under our control", 10],
+    ["Partially, via provider dashboards", 4],
+    ["No", 0]]},
+  { d:"A", t:"Would your AI usage withstand an audit by internal review or a regulator?", o:[
+    ["Yes — logs, contracts and data flows are documented audit-ready", 10],
+    ["Probably, with some rework", 5],
+    ["We'd rather not find out", 0]]}
+];
+
+const VERDICTS = [
+  [80, "Sovereign. You are ahead of the field.", "Your AI usage is largely under your control. In the briefing we show you how to keep it that way — even as your use cases grow."],
+  [60, "Solid — with clear gaps.", "The foundation is right, but at decisive points a foreign vendor still decides. The gaps can be closed precisely."],
+  [40, "Critical gaps.", "Availability, confidentiality or provability depend on third parties today. For a regulated organisation, that is a real risk."],
+  [0,  "Externally controlled.", "Your AI runs by someone else's rules, under someone else's law, outside your control. The good news: the path to sovereignty is shorter than you think."]
+];
+
+let i = 0; const answers = [];
+const $ = id => document.getElementById(id);
+
+$("start").addEventListener("click", () => { $("intro").classList.add("hidden"); $("quiz").classList.remove("hidden"); render(); });
+$("back").addEventListener("click", () => { if (i > 0) { i--; answers.pop(); render(); } });
+
+function render() {
+  const q = QS[i];
+  $("qdim").textContent = "Dimension · " + DIMS[q.d];
+  $("qtitle").textContent = q.t;
+  $("count").textContent = (i + 1) + " / " + QS.length;
+  $("bar").style.width = (i / QS.length * 100) + "%";
+  $("back").style.visibility = i === 0 ? "hidden" : "visible";
+  const box = $("qopts"); box.innerHTML = "";
+  q.o.forEach(([label, pts]) => {
+    const b = document.createElement("button");
+    b.className = "q-opt"; b.type = "button"; b.textContent = label;
+    b.addEventListener("click", () => { answers.push({ d: q.d, pts }); i++; i < QS.length ? render() : finish(); });
+    box.appendChild(b);
+  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function finish() {
+  $("quiz").classList.add("hidden"); $("result").classList.remove("hidden");
+  const byDim = {};
+  for (const k in DIMS) byDim[k] = { got: 0, max: 0 };
+  answers.forEach(a => { byDim[a.d].got += a.pts; byDim[a.d].max += 10; });
+  const total = Math.round(answers.reduce((s, a) => s + a.pts, 0) / (QS.length * 10) * 100);
+
+  let cur = 0; const el = $("score");
+  const tick = () => { cur = Math.min(total, cur + Math.max(1, Math.round(total / 40))); el.textContent = cur; if (cur < total) requestAnimationFrame(tick); };
+  requestAnimationFrame(tick);
+
+  const v = VERDICTS.find(v => total >= v[0]);
+  $("verdict").textContent = v[1]; $("verdictSub").textContent = v[2];
+
+  const dims = $("dims"); dims.innerHTML = "";
+  for (const k in DIMS) {
+    const pct = byDim[k].max ? Math.round(byDim[k].got / byDim[k].max * 100) : 0;
+    const row = document.createElement("div"); row.className = "dim-row";
+    row.innerHTML = '<div class="dim-head"><b>' + DIMS[k] + '</b><span>' + pct + '%</span></div><div class="dim-bar"><i></i></div>';
+    dims.appendChild(row);
+    requestAnimationFrame(() => requestAnimationFrame(() => { row.querySelector("i").style.width = pct + "%"; }));
+  }
+
+  const dimTxt = Object.keys(DIMS).map(k => DIMS[k] + " " + Math.round(byDim[k].got / byDim[k].max * 100) + "%").join(", ");
+  const subj = encodeURIComponent("Sovereignty Briefing — Score " + total + "/100");
+  const body = encodeURIComponent("Hello\n\nI took the Sovereignty Check.\nScore: " + total + "/100 (" + dimTxt + ")\n\nI would like to book a 30-minute briefing.\n\nCompany:\nName:\nPhone (optional):");
+  $("ctaBriefing").href = "mailto:swiss-ai@operal.solutions?subject=" + subj + "&body=" + body;
+  $("ctaMail").href = "mailto:?subject=" + encodeURIComponent("My AI sovereignty score: " + total + "/100") +
+    "&body=" + encodeURIComponent("Sovereignty Check by Swiss AI (swiss-ai.operal.solutions)\n\nScore: " + total + "/100\n" + dimTxt + "\n\nTake the check yourself: https://swiss-ai.operal.solutions/en/check/");
+  $("bar").style.width = "100%";
+}
+</script>
+</body>
+</html>
