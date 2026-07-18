@@ -184,7 +184,7 @@ function finish() {
   const dimTxt = Object.keys(DIMS).map(k => DIMS[k] + " " + Math.round(byDim[k].got / byDim[k].max * 100) + "%").join(", ");
   const subj = encodeURIComponent("Sovereignty Briefing — Score " + total + "/100");
   const body = encodeURIComponent("Hello\n\nI took the Sovereignty Check.\nScore: " + total + "/100 (" + dimTxt + ")\n\nI would like to book a 30-minute briefing.\n\nCompany:\nName:\nPhone (optional):");
-  $("ctaBriefing").href = "mailto:swiss-ai@operal.solutions?subject=" + subj + "&body=" + body;
+  $("ctaBriefing").href = "mailto:office@operal.solutions?subject=" + subj + "&body=" + body;
   $("ctaMail").href = "mailto:?subject=" + encodeURIComponent("My AI sovereignty score: " + total + "/100") +
     "&body=" + encodeURIComponent("Sovereignty Check by Swiss AI (swiss-ai.operal.tech)\n\nScore: " + total + "/100\n" + dimTxt + "\n\nTake the check yourself: https://swiss-ai.operal.tech/en/check/");
   $("bar").style.width = "100%";
