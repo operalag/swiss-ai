@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sovereignty Check — Swiss AI</title>
-<meta name="description" content="How sovereign is your AI? 10 questions, 3 minutes, instant result: your sovereignty score for jurisdiction, model control, data flow and auditability.">
+<title>How safely does your company use AI? — The Swiss AI Check</title>
+<meta name="description" content="How safely does your company use AI? 10 questions, 3 minutes, instant result: your score for location & law, control, data flow and traceability.">
 <link rel="canonical" href="https://swiss-ai.operal.tech/en/check/">
 <link rel="alternate" hreflang="de-CH" href="https://swiss-ai.operal.tech/check/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,11 +33,11 @@
 <main class="check-shell">
 
   <div id="intro">
-    <span class="coord">Sovereignty Check · 10 questions · 3 minutes</span>
-    <h1 class="h-section" style="margin:18px 0 18px;">How sovereign is your AI?</h1>
+    <span class="coord">The Swiss AI Check · 10 questions · 3 minutes</span>
+    <h1 class="h-section" style="margin:18px 0 18px;">How safely does your company use AI?</h1>
     <p class="lede" style="margin-bottom:34px;">Answer 10 questions about how your organisation uses
-    AI today. You get your sovereignty score instantly, across four dimensions — jurisdiction,
-    model control, data flow, auditability. No registration, no data transfer: the check runs
+    AI today. You get your result instantly, across four areas — location &amp; law,
+    control, data flow, traceability. No registration, no data transfer: the check runs
     entirely in your browser.</p>
     <button class="btn btn-gold" id="start">Start the check</button>
   </div>
@@ -57,7 +57,7 @@
 
   <div id="result" class="hidden">
     <div class="score-hero">
-      <span class="coord" style="justify-content:center;">Your sovereignty score</span>
+      <span class="coord" style="justify-content:center;">Your result</span>
       <div class="score-num gold" id="score">–</div>
       <div class="score-label">out of 100 points</div>
       <p class="score-verdict" id="verdict"></p>
@@ -68,10 +68,10 @@
       <span class="coord" style="justify-content:center;">The next step</span>
       <h2 class="h-card" style="font-size:1.4rem;margin:12px 0 10px;">Discuss your result with our architects.</h2>
       <p style="color:var(--muted);font-size:14.5px;max-width:52ch;margin:0 auto 24px;">
-      A 30-minute Sovereignty Briefing — no obligation. We show you how to close the gaps:
-      with open models on dedicated Swiss infrastructure.</p>
+      A free 30-minute initial consultation — no obligation. We show you how to close the gaps:
+      with open models on Swiss infrastructure.</p>
       <div class="result-ctas">
-        <a class="btn btn-gold" id="ctaBriefing" href="#">Book a briefing</a>
+        <a class="btn btn-gold" id="ctaBriefing" href="#">Book a free initial consultation</a>
         <a class="btn btn-glass" id="ctaMail" href="#">Email me my result</a>
       </div>
     </div>
@@ -81,7 +81,7 @@
 </main>
 
 <script>
-const DIMS = { J: "Jurisdiction", M: "Model control", D: "Data flow", A: "Auditability" };
+const DIMS = { J: "Location & law", M: "Control", D: "Data flow", A: "Traceability" };
 
 const QS = [
   { d:"J", t:"Where are your organisation's AI requests processed today?", o:[
@@ -129,10 +129,10 @@ const QS = [
 ];
 
 const VERDICTS = [
-  [80, "Sovereign. You are ahead of the field.", "Your AI usage is largely under your control. In the briefing we show you how to keep it that way — even as your use cases grow."],
+  [80, "Safely set up. You are ahead of the field.", "Your AI usage is largely under your control. In the initial consultation we show you how to keep it that way — even as your use cases grow."],
   [60, "Solid — with clear gaps.", "The foundation is right, but at decisive points a foreign vendor still decides. The gaps can be closed precisely."],
-  [40, "Critical gaps.", "Availability, confidentiality or provability depend on third parties today. For a regulated organisation, that is a real risk."],
-  [0,  "Externally controlled.", "Your AI runs by someone else's rules, under someone else's law, outside your control. The good news: the path to sovereignty is shorter than you think."]
+  [40, "Critical gaps.", "Availability, confidentiality or provability depend on third parties today. The moment customers or auditors start asking, that becomes a real risk."],
+  [0,  "Externally controlled.", "Your AI runs by someone else's rules, under someone else's law, outside your control. The good news: the path to safe AI usage is shorter than you think."]
 ];
 
 let i = 0; const answers = [];
@@ -182,11 +182,11 @@ function finish() {
   }
 
   const dimTxt = Object.keys(DIMS).map(k => DIMS[k] + " " + Math.round(byDim[k].got / byDim[k].max * 100) + "%").join(", ");
-  const subj = encodeURIComponent("Sovereignty Briefing — Score " + total + "/100");
-  const body = encodeURIComponent("Hello\n\nI took the Sovereignty Check.\nScore: " + total + "/100 (" + dimTxt + ")\n\nI would like to book a 30-minute briefing.\n\nCompany:\nName:\nPhone (optional):");
+  const subj = encodeURIComponent("Free initial consultation — check result " + total + "/100");
+  const body = encodeURIComponent("Hello\n\nI took the Swiss AI Check.\nResult: " + total + "/100 (" + dimTxt + ")\n\nI would like to book a free 30-minute initial consultation.\n\nCompany:\nName:\nPhone (optional):");
   $("ctaBriefing").href = "mailto:office@operal.solutions?subject=" + subj + "&body=" + body;
-  $("ctaMail").href = "mailto:?subject=" + encodeURIComponent("My AI sovereignty score: " + total + "/100") +
-    "&body=" + encodeURIComponent("Sovereignty Check by Swiss AI (swiss-ai.operal.tech)\n\nScore: " + total + "/100\n" + dimTxt + "\n\nTake the check yourself: https://swiss-ai.operal.tech/en/check/");
+  $("ctaMail").href = "mailto:?subject=" + encodeURIComponent("My Swiss AI Check result: " + total + "/100") +
+    "&body=" + encodeURIComponent("How safely does your company use AI? — The Swiss AI Check (swiss-ai.operal.tech)\n\nResult: " + total + "/100\n" + dimTxt + "\n\nTake the check yourself: https://swiss-ai.operal.tech/en/check/");
   $("bar").style.width = "100%";
 }
 </script>

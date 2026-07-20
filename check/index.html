@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Souveränitäts-Check — Swiss AI</title>
-<meta name="description" content="Wie souverän ist Ihre KI? 10 Fragen, 3 Minuten, sofortiges Ergebnis: Ihr Souveränitäts-Score für Jurisdiktion, Modellkontrolle, Datenfluss und Auditierbarkeit.">
+<title>Wie sicher nutzt Ihr Unternehmen KI? — Der Swiss AI Check</title>
+<meta name="description" content="Wie sicher nutzt Ihr Unternehmen KI? 10 Fragen, 3 Minuten, sofortiges Ergebnis: Ihr Score für Standort & Recht, Kontrolle, Datenfluss und Nachvollziehbarkeit.">
 <link rel="canonical" href="https://swiss-ai.operal.tech/check/">
 <link rel="alternate" hreflang="en" href="https://swiss-ai.operal.tech/en/check/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,11 +34,11 @@
 
   <!-- intro -->
   <div id="intro">
-    <span class="coord">Souveränitäts-Check · 10 Fragen · 3 Minuten</span>
-    <h1 class="h-section" style="margin:18px 0 18px;">Wie souverän ist Ihre KI?</h1>
+    <span class="coord">Der Swiss AI Check · 10 Fragen · 3 Minuten</span>
+    <h1 class="h-section" style="margin:18px 0 18px;">Wie sicher nutzt Ihr Unternehmen KI?</h1>
     <p class="lede" style="margin-bottom:34px;">Beantworten Sie 10 Fragen zu Ihrer heutigen
-    KI-Nutzung. Sie erhalten sofort Ihren Souveränitäts-Score in vier Dimensionen —
-    Jurisdiktion, Modellkontrolle, Datenfluss, Auditierbarkeit. Keine Registrierung,
+    KI-Nutzung. Sie erhalten sofort Ihr Ergebnis in vier Bereichen —
+    Standort &amp; Recht, Kontrolle, Datenfluss, Nachvollziehbarkeit. Keine Registrierung,
     keine Datenübertragung: Der Check läuft vollständig in Ihrem Browser.</p>
     <button class="btn btn-gold" id="start">Check starten</button>
   </div>
@@ -60,7 +60,7 @@
   <!-- result -->
   <div id="result" class="hidden">
     <div class="score-hero">
-      <span class="coord" style="justify-content:center;">Ihr Souveränitäts-Score</span>
+      <span class="coord" style="justify-content:center;">Ihr Ergebnis</span>
       <div class="score-num gold" id="score">–</div>
       <div class="score-label">von 100 Punkten</div>
       <p class="score-verdict" id="verdict"></p>
@@ -71,10 +71,10 @@
       <span class="coord" style="justify-content:center;">Der nächste Schritt</span>
       <h2 class="h-card" style="font-size:1.4rem;margin:12px 0 10px;">Besprechen Sie Ihr Ergebnis mit unseren Architekten.</h2>
       <p style="color:var(--muted);font-size:14.5px;max-width:52ch;margin:0 auto 24px;">
-      30 Minuten Sovereignty Briefing — unverbindlich. Wir zeigen, wie Sie die Lücken schliessen:
-      mit offenen Modellen auf dedizierter Schweizer Infrastruktur.</p>
+      30 Minuten kostenlose Erstberatung — unverbindlich. Wir zeigen, wie Sie die Lücken
+      schliessen: mit offenen Modellen auf Schweizer Infrastruktur.</p>
       <div class="result-ctas">
-        <a class="btn btn-gold" id="ctaBriefing" href="#">Briefing buchen</a>
+        <a class="btn btn-gold" id="ctaBriefing" href="#">Kostenlose Erstberatung buchen</a>
         <a class="btn btn-glass" id="ctaMail" href="#">Ergebnis als E-Mail an mich</a>
       </div>
     </div>
@@ -84,7 +84,7 @@
 </main>
 
 <script>
-const DIMS = { J: "Jurisdiktion", M: "Modellkontrolle", D: "Datenfluss", A: "Auditierbarkeit" };
+const DIMS = { J: "Standort & Recht", M: "Kontrolle", D: "Datenfluss", A: "Nachvollziehbarkeit" };
 
 const QS = [
   { d:"J", t:"Wo werden die KI-Anfragen Ihrer Organisation heute verarbeitet?", o:[
@@ -132,10 +132,10 @@ const QS = [
 ];
 
 const VERDICTS = [
-  [80, "Souverän. Sie gehören zur Spitze.", "Ihre KI-Nutzung ist weitgehend unter Ihrer Kontrolle. Im Briefing zeigen wir, wie Sie das Niveau halten — auch wenn Ihre Anwendungsfälle wachsen."],
+  [80, "Sicher aufgestellt. Sie gehören zur Spitze.", "Ihre KI-Nutzung ist weitgehend unter Ihrer Kontrolle. In der Erstberatung zeigen wir, wie Sie das Niveau halten — auch wenn Ihre Anwendungsfälle wachsen."],
   [60, "Solide — mit klaren Lücken.", "Das Fundament stimmt, aber an entscheidenden Stellen entscheidet noch ein fremder Anbieter. Die Lücken sind gezielt schliessbar."],
-  [40, "Kritische Lücken.", "Verfügbarkeit, Vertraulichkeit oder Nachweisbarkeit hängen heute von Dritten ab. Für eine regulierte Organisation ist das ein echtes Risiko."],
-  [0,  "Fremdbestimmt.", "Ihre KI läuft nach fremden Regeln, unter fremdem Recht, ohne Ihre Kontrolle. Die gute Nachricht: Der Weg zur Souveränität ist kürzer, als Sie denken."]
+  [40, "Kritische Lücken.", "Verfügbarkeit, Vertraulichkeit oder Nachweisbarkeit hängen heute von Dritten ab. Spätestens wenn Kunden oder Prüfer fragen, wird das zum echten Risiko."],
+  [0,  "Fremdbestimmt.", "Ihre KI läuft nach fremden Regeln, unter fremdem Recht, ohne Ihre Kontrolle. Die gute Nachricht: Der Weg zu sicherer KI-Nutzung ist kürzer, als Sie denken."]
 ];
 
 let i = 0; const answers = [];
@@ -186,11 +186,11 @@ function finish() {
   }
 
   const dimTxt = Object.keys(DIMS).map(k => DIMS[k] + " " + Math.round(byDim[k].got / byDim[k].max * 100) + "%").join(", ");
-  const subj = encodeURIComponent("Sovereignty Briefing — Score " + total + "/100");
-  const body = encodeURIComponent("Guten Tag\n\nIch habe den Souveränitäts-Check gemacht.\nScore: " + total + "/100 (" + dimTxt + ")\n\nIch möchte ein 30-Minuten-Briefing buchen.\n\nFirma:\nName:\nTelefon (optional):");
+  const subj = encodeURIComponent("Kostenlose Erstberatung — Check-Ergebnis " + total + "/100");
+  const body = encodeURIComponent("Guten Tag\n\nIch habe den Swiss AI Check gemacht.\nErgebnis: " + total + "/100 (" + dimTxt + ")\n\nIch möchte eine kostenlose 30-Minuten-Erstberatung buchen.\n\nFirma:\nName:\nTelefon (optional):");
   $("ctaBriefing").href = "mailto:office@operal.solutions?subject=" + subj + "&body=" + body;
-  $("ctaMail").href = "mailto:?subject=" + encodeURIComponent("Mein KI-Souveränitäts-Score: " + total + "/100") +
-    "&body=" + encodeURIComponent("Souveränitäts-Check von Swiss AI (swiss-ai.operal.tech)\n\nScore: " + total + "/100\n" + dimTxt + "\n\nCheck selbst machen: https://swiss-ai.operal.tech/check/");
+  $("ctaMail").href = "mailto:?subject=" + encodeURIComponent("Mein Swiss AI Check-Ergebnis: " + total + "/100") +
+    "&body=" + encodeURIComponent("Wie sicher nutzt Ihr Unternehmen KI? — Der Swiss AI Check (swiss-ai.operal.tech)\n\nErgebnis: " + total + "/100\n" + dimTxt + "\n\nCheck selbst machen: https://swiss-ai.operal.tech/check/");
   $("bar").style.width = "100%";
 }
 </script>
